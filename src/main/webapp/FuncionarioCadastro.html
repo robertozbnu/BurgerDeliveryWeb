@@ -1,0 +1,347 @@
+<!-- 
+	Document   	: FuncionarioCadastro
+    Created on 	: 21/04/2018, 16:39:28
+    Author     	: Morgana e Sidnei
+	Função		: Cadastrar/modificar um funcionário e cadastrar/modificar seu(s) respectivo(s) endereço(s).
+-->
+
+<script type="text/javascript"
+	src="controller/funcionario/cadastroFuncionario.js"></script>
+<script type="text/javascript" src="controller/endereco/cadastroEndereco.js"></script>
+<script type="text/javascript"
+	src="controller/generics/validacoesGenericas.js"></script>
+<script type="text/javascript"
+	src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxDxbtdTs7_ViJD346_X6rj2-a9gIJeE8&libraries=places&callback=initAutocomplete"
+	async defer></script>
+<div class="content-title">
+	<i class="fa fa-id-card-o"></i>Pessoas<a class="link-abrir"
+		href="FuncionarioConsulta.html"><i class="fa fa-angle-right"></i>Consulta
+		de funcionários</a><i class="fa fa-angle-right"></i>Adicionar funcionário
+</div>
+<div class="formtitle">Adicionar funcionário</div>
+<form id="formFuncionario">
+	<div class="page-cad">
+		<fieldset class="well">
+			<legend class="well-legend">Dados pessoais</legend>
+
+			<div class="form-row">
+				<div class="form-group col-md-2">
+					<label for="codFun" id="lCdFunc">Código funcionário</label> <input
+						class="form-control" id="cdFuncionario" min="1" required>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-8">
+					<label for="dsNome" class="control-label required">Nome</label> <input
+						class="form-control" id="dsNome" type="text" maxlength="255"
+						required>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="dsTelefone1" class="control-label required">Telefone</label>
+					<input class="form-control" id="dsTelefone1" type="text"
+						maxlength="15" required>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="dsTelefone2" class="control-label">Telefone
+						adicional</label> <input class="form-control" id="dsTelefone2" type="text"
+						maxlength="15">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-2">
+					<label for="dsCargo" class="control-label">Cargo</label> <input
+						class="form-control" id="dsCargo" type="text" maxlength="255"
+						required>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-2">
+					<label for="cdNivel" class="control-label required">Nível
+						de permissão</label> <select class="form-control" id="cdNivel" min="1"
+						required>
+						<option value="0" selected>Sem acesso</option>
+						<option value="1">Mínima</option>
+						<option value="10">Máxima</option>
+
+					</select>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="dsLogin" class="control-label" id="lDsLogin">Login de
+						usuário</label> <input class="form-control" id="dsLogin" min="1">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="dsSenha" class="control-label" id="lDsSenha">Senha</label> 
+					<input type="password" class="form-control" id="dsSenha" min="1">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" checked="checked"
+						id="ativo"> <label class="form-check-label"
+						for="ativo">Ativo</label>
+				</div>
+			</div>
+
+		</fieldset>
+
+
+		<fieldset class="well" id="fsEnd">
+			<legend class="well-legend">Endereço</legend>
+
+			<div class="form-row">
+				<div id="locationField" class="form-group col-md-12">
+					<label for="autocomplete" class="control-label required">Auto-complete</label>
+					<input id="autocomplete"
+						placeholder="Digite o endereço para auto completar os campos"
+						class="form-control" onFocus="geolocate()" type="text"></input>
+				</div>
+			</div>
+
+			<div class="form-row">
+
+				<div class="form-group col-md-6">
+					<label for="route" class="control-label required">Endereço</label>
+					<input class="form-control" id="route" type="text" maxlength="255"
+						required>
+				</div>
+				<div class="form-group col-md-1">
+					<label for="street_number" class="control-label required">Nº</label>
+					<input class="form-control" id="street_number" type="number"
+						min="1" required>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="logrEndFunc" class="control-label">Logradouro</label> <input
+						class="form-control" id="logrEndFunc" maxlength="255">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="postal_code" class="control-label required">CEP</label>
+					<input class="form-control" id="postal_code" required>
+				</div>
+			</div>
+
+			<div class="form-row">
+
+				<div class="form-group col-md-3">
+					<label for="baiEnd" class="control-label required">Bairro</label> <input
+						class="form-control" id="baiEnd" type="text" maxlength="255"
+						required>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="compEnd" class="control-label">Complemento</label> <input
+						class="form-control" id="compEnd" type="text" maxlength="255">
+				</div>
+				<div class="form-group col-md-5">
+					<label for="locality" class="control-label required">Cidade</label>
+					<input class="form-control" id="locality" type="text"
+						maxlength="255">
+				</div>
+				<div class="form-group col-md-1">
+					<label for="administrative_area_level_1" class="control-label">UF</label>
+					<input class="form-control" id="administrative_area_level_1"
+						type="text" maxlength="2">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="country" class="control-label ">País</label> <input
+						class="form-control" id="country" type="text" maxlength="255"
+						required>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="locality" class="control-label ">Distância</label> <input
+						class="form-control" id="distance" type="text" maxlength="255"
+						required>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="locality" class="control-label ">Duração</label> <input
+						class="form-control" id="duration" type="text" maxlength="255"
+						required>
+				</div>
+
+			</div>
+			<div class="form-group">
+				<label for="obsEndFunc" class="control-label">Observação</label>
+				<textarea class="form-control" rows="4" id="obsEndFunc"></textarea>
+			</div>
+			<script>
+				var placeSearch, autocomplete;
+				var componentForm = {
+					street_number : 'short_name',
+					route : 'long_name',
+					locality : 'long_name',
+					administrative_area_level_1 : 'short_name',
+					country : 'long_name',
+					postal_code : 'short_name'
+				};
+
+				function initAutocomplete() {
+					// Create the autocomplete object, restricting the search to geographical
+					// location types.
+					autocomplete = new google.maps.places.Autocomplete(
+					/** @type {!HTMLInputElement} */
+					(document.getElementById('autocomplete')), {
+						types : [ 'geocode' ]
+					//Solicita saber o local onde está atualmente
+					});
+
+					// When the user selects an address from the dropdown, populate the address
+					// fields in the form.
+					autocomplete.addListener('place_changed', fillInAddress);
+				}
+
+				function fillInAddress() {
+					// Get the place details from the autocomplete object.
+					var place = autocomplete.getPlace();
+
+					for ( var component in componentForm) {
+						document.getElementById(component).value = '';
+						document.getElementById(component).disabled = false;
+					}
+
+					// Get each component of the address from the place details
+					// and fill the corresponding field on the form.
+					for (var i = 0; i < place.address_components.length; i++) {
+						var addressType = place.address_components[i].types[0];
+						if (componentForm[addressType]) {
+							var val = place.address_components[i][componentForm[addressType]];
+							document.getElementById(addressType).value = val;
+						}
+					}
+					document.getElementById('baiEnd').value = place.address_components[2].long_name; //GLÓRIA
+					document.getElementById('locality').value = place.address_components[3].long_name;
+
+					var origin = "Rua Presidente Costa e Silva, 3644, Pomerode, SC, Brasil", destination = document
+							.getElementById('autocomplete').value, service = new google.maps.DistanceMatrixService();
+
+					service.getDistanceMatrix({
+						origins : [ origin ],
+						destinations : [ destination ],
+						travelMode : google.maps.TravelMode.DRIVING,
+						avoidHighways : false,
+						avoidTolls : false
+					}, callback);
+				}
+
+				function callback(response, status) {
+
+					if (status == "OK") {
+						document.getElementById('distance').value = response.rows[0].elements[0].distance.text;
+						document.getElementById('duration').value = response.rows[0].elements[0].duration.text;
+					} else {
+						alert("Error: " + status);
+					}
+				}
+
+				/**	function geolocate() {  //Pergunta se quer saber a localização atual
+						if (navigator.geolocation) {
+							navigator.geolocation
+									.getCurrentPosition(function(
+											position) {
+										var geolocation = {
+											lat : position.coords.latitude,
+											lng : position.coords.longitude
+										};
+										var circle = new google.maps.Circle(
+												{
+													center : geolocation,
+													radius : position.coords.accuracy
+												});
+										autocomplete.setBounds(circle
+												.getBounds());
+									});
+						}
+					} **/
+			</script>
+
+		</fieldset>
+		<fieldset class="well" style="padding-bottom: 18px" id="fsEnds">
+			<legend class="well-legend">Endereços</legend>
+			<div class="area-end" id="cardEnds">
+				
+			</div>
+		</fieldset>
+
+		<center>
+			<a class="link-abrir" href="FuncionarioConsulta.html"><button
+					type="button" class="btn btn-secondary">Cancelar</button></a> 
+			<button id="btnSaveFunc" type="button" class="btn btn-success"> <i class="fa fa-save"></i>Cadastrar funcionário</button>
+		</center>
+	</div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalEndereco" tabindex="-1" role="dialog" aria-labelledby="ModalTitulo" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitulo">Cadastrar endere�o</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<fieldset class="well" id="fsModal">
+					<legend class="well-legend">Endere�o</legend>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+								<label for="cdEndereco" id="lcdEndereco" class="control-label required">Código</label>
+								<input class="form-control" id="cdEndereco" type="text" maxlength="5" required>
+						</div>
+					</div>
+
+					<div class="form-row">
+
+						<div class="form-group col-md-8">
+							<label for="endCli" class="control-label required">Endereço</label>
+							<input class="form-control" id="endCli" type="text" maxlength="255" required>
+						</div>
+						<div class="form-group col-md-4">
+							<label for="numEndCli" class="control-label required">Nº</label>
+							<input class="form-control" id="numEndCli" type="number" min="1" required>
+						</div>
+						<div class="form-group col-md-8">
+							<label for="logrEnd" class="control-label">Logradouro</label>
+							<input class="form-control" id="logrEnd" maxlength="255">
+						</div>
+						<div class="form-group col-md-4">
+							<label for="cep" class="control-label required">CEP</label>
+							<input class="form-control" id="cep" required>
+						</div>
+					</div>
+
+					<div class="form-row">
+
+						<div class="form-group col-md-6">
+							<label for="bairro" class="control-label required">Bairro</label>
+							<input class="form-control" id="bairro" type="text" maxlength="255" required>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="compEnd" class="control-label">Complemento</label>
+							<input class="form-control" id="compEnd" type="text" maxlength="255">
+						</div>
+						<div class="form-group col-md-8">
+							<label for="cidade" class="control-label required">Cidade</label>
+							<input class="form-control" id="cidade" type="text" maxlength="255" required>
+						</div>
+						<div class="form-group col-md-4">
+							<label for="uf" class="control-label">UF</label>
+							<input class="form-control" id="uf" type="text" maxlength="2">
+						</div>
+			
+					</div>
+					<div class="form-group">
+						<label for="obsEnd" class="control-label">Observação</label>
+						<textarea class="form-control" rows="4" id="obsEndCli"></textarea>
+					</div>
+					<div id="sublocality_level_1" type="text" maxlength="2" visible=false></div>
+					<div id="administrative_area_level_2" type="text" maxlength="2" visible=false></div>
+				</fieldset>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" id="btnSaveEndereco" class="btn btn-primary" data-dismiss="modal">Cadastrar</button>
+			</div>
+		</div>
+	</div>
+</div>

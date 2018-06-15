@@ -1,0 +1,56 @@
+﻿<!-- 
+    Document   	: Login
+    Created on 	: 21/04/2018, 16:39:28
+    Author     	: Morgana e Everton
+	Função		: Realizar o login no sistema.
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Guten Burguer - login</title>
+
+<!-- DataTables -->
+	<link rel="stylesheet" type="text/css"
+	href="library/DataTables/datatables.min.css" />
+
+<!-- Fontes-->
+    <link rel="stylesheet" href="fonts/font-awesome.css">
+    <link href='fonts/NotoSans.css' rel='stylesheet' type='text/css'>
+
+<!-- CSS custimozado -->
+<link href="css/style.css" rel="stylesheet" />
+</head>
+<body style="background-color: #efefef">
+	<div class="login">
+		<form>
+			<div class="login-title">
+				<logincolor>Guten</logincolor> Burguer</a>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<i class="fa fa-user" style="font-size: 17px; margin-top: 10px"></i>
+					<input type="text" class="form-control" name="usuLogin"
+						placeholder="Usuário" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<i class="fa fa-lock" style="font-size: 17px; margin-top: 10px"></i>
+					<input type="password" class="form-control" name="senhaLogin"
+						placeholder="Senha" required="required">
+				</div>
+			</div>
+				<button type="submit" class="btn btn-primary login-btn btn-block">Entrar</button>
+		</form>
+	</div>
+</body>
+<!-- Scripts -->
+	<script type="text/javascript" src="library/DataTables/datatables.min.js"></script>
+	<script type="text/javascript" src="controller/login.js"></script>
+</html>

@@ -1,0 +1,137 @@
+<!-- 
+    Document   : PedidoConsulta
+    Created on : 15/05/2018, 21:31:28
+    Author     : Morgana
+    Fun��o	   : Visualizar todos os pedidos e as informa��es de cada pedido.
+    
+-->
+
+<div class="d-flex align-items-stretch">
+	<div class="content p-4">
+		<div class="content-title">
+			<i class="fa fa-shopping-basket" aria-hidden="true"></i>Pedidos<i
+				class="fa fa-angle-right"></i>Lista de pedidos
+		</div>
+
+		<div class="formtitle">Pedidos</div>
+		<div class="page-consulta">
+			<a href="CadastroPedido.html?state=i"><button type="button"
+					class="btn btn-success" style="margin: 15px 15px 25px 15px;">
+					<i class="fa fa-plus-circle"></i>Cadastrar pedido
+				</button></a>
+			<table class="table table-bordered table-hover" id="data-table">
+				<thead>
+					<tr>
+						<th scope="col">Código</th>
+						<th scope="col">Forma de pagamento</th>
+						<th scope="col">Valor</th>
+						<th scope="col">Opções</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1001</td>
+						<td>Dinheiro</td>
+						<td>R$ 121,99</td>
+						<td class="table-buttons">
+							<button type="button" class="table-eye" title="Visualizar pedido"
+								data-toggle="modal" data-nome="1001" data-target="#ModalPedido">
+								<i class="fa fa-eye"></i>
+							</button> <a class="link-editar" data-id="1001" 
+							data-key="cdPedido" data-servico="pedido" 
+							href="CadastroPedido.html"><button type="button"
+									class="table-edit" title="Editar pedido">
+									<i class="fa fa-pencil"></i>
+								</button></a> <a href="#"><button type="button" class="table-del"
+									title="Cancelar pedido">
+									<i class="fa fa-close"></i>
+								</button></a>
+						</td>
+					</tr>					
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalPedido" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitulo" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitulo">Resumo do pedido</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+
+			<div class="modal-body">
+
+				<fieldset class="well">
+					<legend class="well-legend">Itens do pedido</legend>
+
+
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Produto</th>
+								<th scope="col">Quantidade</th>
+								<th scope="col">Valor</th>
+								<th scope="col">Adicionais</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>X-Burguer</td>
+								<td>2</td>
+								<td>R$49,99</td>
+								<td>Maionese</td>
+							</tr>
+							<tr>
+								<td>X-Galinha</td>
+								<td>1</td>
+								<td>R$11,00</td>
+								<td>Pepino, Milho</td>
+							</tr>
+							<tr>
+								<td>X-Bacon</td>
+								<td>1</td>
+								<td>R$11,00</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>Por��o de fritas</td>
+								<td>2</td>
+								<td>R$50,00</td>
+								<td>Maionese, Bacon</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</fieldset>
+
+				<fieldset class="well">
+					<legend class="well-legend">Informa��es de entrega</legend>
+					Endere�o: Rua XV de Novembro, 888 </br> Cidade: Blumenau, SC </br> Bairro:
+					Centro </br>
+					</p>
+				</fieldset>
+
+				<fieldset class="well">
+					<legend class="well-legend">Geral</legend>
+					Forma de pagamento: Dinheiro </br> Data do pedido: dd/mm/yyyy </br> Cliente:
+					1 - Jo�o da Silva </br> Total do pedido: 121,99 Observa��o: Teste
+					</p>
+				</fieldset>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
